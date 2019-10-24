@@ -48,7 +48,7 @@ def index():
             location.append("western")
     data["location"] = location
 
-    return render_template("index.html", data_table=data.to_html())
+    return render_template("index.html", data_table=data.to_html(classes=["table", "table-striped", "table-bordered", "table-responsive"]), border="None")
 
 @app.route('/analysis')
 def analysis():
