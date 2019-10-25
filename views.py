@@ -69,4 +69,16 @@ def analysis():
         data["poorest_race"].value_counts(normalize=True).plot(kind='pie', autopct='%1.1f%%', title="Ethnie au plus bas revenu")
         plt.savefig(fname="static/images/distri_poorest_race")
         plt.close()
+
+        subset = data[["white", "asian", "black", "indian", "pacific", "other", "two_or_more_races"]]
+        for label, column in subset.iteritems():
+            mean = round(column.mean(skipna=True))
+            median = round(column.median(skipna=True))
+            title = "Histogramme des revenues de : {} ".format(label)
+            text = "moyenne : {}  medianne : {}".format(mean, median)
+            fname = "static/images/hist_{}".format(label)
+            column.dropna().plot(kind='hist', title=title)
+            plt.figtext(x=0.2, y=0.01, s=text)
+            plt.savefig(fname=fname)
+            plt.close()
     return render_template("analysis.html")
