@@ -11,9 +11,8 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     data = pd.read_csv("data/median_income_data.csv", decimal=",")
-    # get all columns names, clean it and rename the dataframe
-    columns = list(data)
-    columns = [value.lower().replace(" ", "_") for value in columns]
+    # Rename columns with shorter names
+    columns = ["state", "white", "error1", "black", "error2", "indian", "error3", "asian", "error4", "pacific", "error5", "other", "error6", "two_or_more_races", "error7" ]
     data.columns = columns
 
     #Turn all data in pure integers
@@ -30,7 +29,7 @@ def index():
             data[column] = test
 
     # Add data about richest and poorest race and difference between poorest and richest
-    races_values = data[["white", "asian", "black_or_african_american", "american_indian_and_alaska_native", "native_hawaiian_and_other_pacific_islander", "some_other_race", "two_or_more_races"]]
+    races_values = data[["white", "asian", "black", "indian", "pacific", "other", "two_or_more_races"]]
     data["richest_race"] = races_values.idxmax(axis=1)
     data["richest"] = races_values.max(axis=1)
     data["poorest_race"] = races_values.idxmin(axis=1)
