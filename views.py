@@ -2,6 +2,7 @@ from os import path
 
 import pandas as pd
 import re
+import matplotlib.pyplot as plt
 
 from flask import Flask
 from flask import render_template
@@ -57,4 +58,9 @@ def index():
 
 @app.route('/analysis')
 def analysis():
-    return render_template("analysis.html")
+    if path.exists("data/final_income_data.csv"):
+        data = pd.read_csv("data/final_income_data.csv", decimal=",")
+        data["richest_race"].value_counts(normalize=True).plot(kind='pie')
+        plt.axis('equal')
+        test = plt.savefig(fname="static/images/distri_richest_race")
+    return render_template("analysis.html", test=test)
