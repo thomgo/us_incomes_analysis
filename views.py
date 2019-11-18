@@ -71,13 +71,14 @@ def analysis():
         plt.close()
 
         subset = data[["white", "asian", "black", "indian", "pacific", "other", "two_or_more_races"]]
+        subset["pacific"] = subset["pacific"].astype(float)
         for label, column in subset.iteritems():
-            mean = round(column.mean(skipna=True))
-            median = round(column.median(skipna=True))
+            mean = str(round(column.mean(skipna=True)))
+            median = str(round(column.median(skipna=True)))
             title = "Histogramme des revenues de : {} ".format(label)
             text = "moyenne : {}  medianne : {}".format(mean, median)
             fname = "static/images/hist_{}".format(label)
-            column.dropna().plot(kind='hist', title=title)
+            column.plot(kind='hist', title=title)
             plt.figtext(x=0.2, y=0.01, s=text)
             plt.savefig(fname=fname)
             plt.close()
