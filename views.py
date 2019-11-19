@@ -31,7 +31,7 @@ def index():
                     try:
                         value = int(value)
                         test[index] = value
-                    except Exception as e:
+                    except ValueError:
                         test[index] = None
                 data[column] = test
 
