@@ -1,18 +1,16 @@
-from os import path
-
 import pandas as pd
 import re
-# Avoid runtime and threading errors because not displaying the charts
 import matplotlib
-matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
+from os import path
 from flask import Flask
 from flask import render_template
-
 from data.geographical_information import states_location
 
 app = Flask(__name__)
+# Avoid runtime and threading errors because not displaying the charts
+matplotlib.use('Agg')
 
 @app.route('/')
 def index():
@@ -24,7 +22,7 @@ def index():
         columns = ["state", "white", "error1", "black", "error2", "indian", "error3", "asian", "error4", "pacific", "error5", "other", "error6", "two_or_more_races", "error7" ]
         data.columns = columns
 
-        #Turn all data in pure integers
+        # Turn all data in pure integers
         for column in columns:
             if column != "state":
                 test = list(data[column])
@@ -37,7 +35,7 @@ def index():
                         test[index] = None
                 data[column] = test
 
-        # Add data about richest and poorest race and difference between poorest and richest
+        # Add richest, poorest race and difference between poorest and richest
         races_values = data[["white", "asian", "black", "indian", "pacific", "other", "two_or_more_races"]]
         data["richest_race"] = races_values.idxmax(axis=1)
         data["richest"] = races_values.max(axis=1)
