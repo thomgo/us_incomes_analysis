@@ -55,7 +55,8 @@ def index():
         data["location"] = location
         data.to_csv(path_or_buf="data/final_income_data.csv", index=False)
 
-    return render_template("index.html", data_table=data.to_html(classes=["table", "table-striped", "table-bordered", "table-responsive"]), border="None")
+    data = data.to_html(classes=["table", "table-striped", "table-bordered", "table-responsive"])
+    return render_template("index.html", data_table=data)
 
 @app.route('/analysis')
 def analysis():
@@ -80,4 +81,5 @@ def analysis():
             plt.figtext(x=0.2, y=0.01, s=text)
             plt.savefig(fname=fname)
             plt.close()
+
     return render_template("analysis.html")
