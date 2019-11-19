@@ -21,22 +21,19 @@ def index():
     else:
         data = pd.read_csv("data/median_income_data.csv", decimal=",")
         # Rename columns with shorter names
-        columns = ["state", "white", "error1", "black", "error2", "indian", "error3", "asian", "error4", "pacific", "error5", "other", "error6", "two_or_more_races", "error7" ]
-        data.columns = columns
+        data.columns = ["state", "white", "error1", "black", "error2", "indian", "error3", "asian", "error4", "pacific", "error5", "other", "error6", "two_or_more_races", "error7" ]
 
         # Clean strings and turn all data in pure integers
-        for column in columns:
-            if column != "state":
-                test = list(data[column])
-                for index, value in enumerate(test):
-                    # Keep only integer value from the string
-                    value = re.sub('[^0-9]', "", value)
-                    try:
-                        value = int(value)
-                        test[index] = value
-                    except ValueError:
-                        test[index] = None
-                data[column] = test
+        for column in data.columns[1:]:
+            column_values = list(data[column])
+            for index, value in enumerate(column_values):
+                # Keep only integer value from the string
+                try:
+                    value = int(re.sub('[^0-9]', "", value))
+                    column_values[index] = value
+                except ValueError:
+                    column_values[index] = None
+            data[column] = column_values
 
         # Keep only data related to incomes by race
         races_values = data[["white", "asian", "black", "indian", "pacific", "other", "two_or_more_races"]]
