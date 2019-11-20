@@ -67,20 +67,26 @@ def index():
 
 @app.route('/analysis')
 def analysis():
+    """Create and save as images all the figures needed for the analysis"""
     if path.exists("data/final_income_data.csv"):
         data = pd.read_csv("data/final_income_data.csv", decimal=",")
+        # Piechart with frequence of races in % in richest_race column
         data["richest_race"].value_counts(normalize=True).plot(kind='pie', autopct='%1.1f%%', title="Ethnie au plus haut revenu")
         plt.savefig(fname="static/images/distri_richest_race")
         plt.close()
+        # Piechart with frequence of races in % in poorest_race column
         data["poorest_race"].value_counts(normalize=True).plot(kind='pie', autopct='%1.1f%%', title="Ethnie au plus bas revenu")
         plt.savefig(fname="static/images/distri_poorest_race")
         plt.close()
 
+        # Keep only the incomes by race
         subset = data[["white", "asian", "black", "indian", "pacific", "other", "two_or_more_races"]]
+        # Turn pacific column to float, if not mean and median does not work
         subset["pacific"] = subset["pacific"].astype(float)
+        # Create one histogram by race for incomes
         for label, column in subset.iteritems():
-            mean = str(round(column.mean(skipna=True)))
-            median = str(round(column.median(skipna=True)))
+            mean = int(round(column.mean(skipna=True)))
+            median = int(round(column.median(skipna=True)))
             title = "Histogramme des revenues de : {} ".format(label)
             text = "moyenne : {}  medianne : {}".format(mean, median)
             fname = "static/images/hist_{}".format(label)
