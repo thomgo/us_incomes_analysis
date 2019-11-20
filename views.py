@@ -71,11 +71,11 @@ def analysis():
     if path.exists("data/final_income_data.csv"):
         data = pd.read_csv("data/final_income_data.csv", decimal=",")
         # Piechart with frequence of races in % in richest_race column
-        data["richest_race"].value_counts(normalize=True).plot(kind='pie', autopct='%1.1f%%', title="Ethnie au plus haut revenu")
+        data["richest_race"].value_counts(normalize=True).plot(kind='pie', autopct='%1.1f%%', title="Races with highest income")
         plt.savefig(fname="static/images/distri_richest_race")
         plt.close()
         # Piechart with frequence of races in % in poorest_race column
-        data["poorest_race"].value_counts(normalize=True).plot(kind='pie', autopct='%1.1f%%', title="Ethnie au plus bas revenu")
+        data["poorest_race"].value_counts(normalize=True).plot(kind='pie', autopct='%1.1f%%', title="races with lowest income")
         plt.savefig(fname="static/images/distri_poorest_race")
         plt.close()
 
@@ -87,8 +87,8 @@ def analysis():
         for label, column in subset.iteritems():
             mean = int(round(column.mean(skipna=True)))
             median = int(round(column.median(skipna=True)))
-            title = "Histogramme des revenues de : {} ".format(label)
-            text = "moyenne : {}  medianne : {}".format(mean, median)
+            title = "Histrogram of {} incomes".format(label)
+            text = "mean : {}  median : {}".format(mean, median)
             fname = "static/images/hist_{}".format(label)
             column.plot(kind='hist', title=title)
             plt.figtext(x=0.2, y=0.01, s=text)

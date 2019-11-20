@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block title %}Analyse{% endblock %}
 {%block main %}
-  <h1>Analyse des données</h1>
+  <h1>Data Analysis</h1>
 
   <section class="container">
-    <h2>Distribution du revenu médian des foyers par ethnie</h2>
+    <h2>Distribution of highest and lowest incomes by race</h2>
     <div class="row">
       <div class="col-sm-6">
         <img class="img-fluid" src="{{ url_for('static', filename='images/distri_richest_race.png')}}" alt="">
@@ -16,7 +16,7 @@
   </section>
 
   <section class="container">
-    <h2>Histogrammes des revenus par ethnie</h2>
+    <h2>Distribution of incomes by race</h2>
     <div class="row">
       <div class="col-sm-4">
         <img class="img-fluid" src="{{ url_for('static', filename='images/hist_white.png')}}" alt="">
