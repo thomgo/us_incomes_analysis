@@ -7,6 +7,7 @@ from os import path
 from flask import Flask
 from flask import render_template
 from data.geographical_information import states_location
+from service.data_manipulator import DataManipulator as dm
 
 app = Flask(__name__)
 # Avoid runtime and threading errors because not displaying the charts
