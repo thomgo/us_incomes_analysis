@@ -23,29 +23,8 @@ class DataManipulator():
         # Rename columns with shorter names
         data.columns = ["state", "white", "error1", "black", "error2", "indian", "error3", "asian", "error4", "pacific", "error5", "other", "error6", "two_or_more_races", "error7" ]
         data = cls.keep_numbers_only(data)
-
-        # Keep only data related to incomes by race
-        races_values = data[["white", "asian", "black", "indian", "pacific", "other", "two_or_more_races"]]
-        # Add column with richest race and highest income for each state
-        data["richest_race"] = races_values.idxmax(axis=1)
-        data["richest"] = races_values.max(axis=1)
-        # Add column with poorest race and lowest income for each state
-        data["poorest_race"] = races_values.idxmin(axis=1)
-        data["poorest"] = races_values.min(axis=1)
-        # Add column with diffeence beetwen highest and lowest income
-        data["difference"] = data["richest"] - data["poorest"]
-
-        # Add column with each state location in the US
-        # For location see geographical_information
-        location = []
-        for state in data["state"]:
-            if state in states_location["northern"]:
-                location.append("northern")
-            elif state in states_location["southern"]:
-                location.append("southern")
-            else:
-                location.append("western")
-        data["location"] = location
+        data = cls.find_max_and_min_incomes(data)
+        data = cls.add_state_location(data)
 
         # Save the improved data as a csv file
         data.to_csv(path_or_buf="data/final_income_data.csv", index=False)
@@ -65,10 +44,32 @@ class DataManipulator():
             data[column] = column_values
         return data
 
-    # @staticmethod
-    # def keep_numbers_only(cls):
-    #     pass
-    #
-    # @staticmethod
-    # def keep_numbers_only(cls):
-    #     pass
+    @staticmethod
+    def find_max_and_min_incomes(data):
+        """Add data about the richest and poorest race in eahc state"""
+        # Keep only data related to incomes by race
+        races_values = data[["white", "asian", "black", "indian", "pacific", "other", "two_or_more_races"]]
+        # Add column with richest race and highest income for each state
+        data["richest_race"] = races_values.idxmax(axis=1)
+        data["richest"] = races_values.max(axis=1)
+        # Add column with poorest race and lowest income for each state
+        data["poorest_race"] = races_values.idxmin(axis=1)
+        data["poorest"] = races_values.min(axis=1)
+        # Add column with diffeence beetwen highest and lowest income
+        data["difference"] = data["richest"] - data["poorest"]
+        return data
+
+    @staticmethod
+    def add_state_location(data):
+        """Add column with each state location in the US
+        For location see geographical_information"""
+        location = []
+        for state in data["state"]:
+            if state in states_location["northern"]:
+                location.append("northern")
+            elif state in states_location["southern"]:
+                location.append("southern")
+            else:
+                location.append("western")
+        data["location"] = location
+        return data
