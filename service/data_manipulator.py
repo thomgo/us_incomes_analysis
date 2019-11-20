@@ -19,7 +19,7 @@ class DataManipulator():
         add information about location, inequalities and save the file """
         data = pd.read_csv(DataManipulator.data_file, decimal=",")
         # Rename columns with shorter names
-        data.columns = ["state", "white", "error1", "black", "error2", "indian", "error3", "asian", "error4", "pacific", "error5", "other", "error6", "two_or_more_races", "error7" ]
+        data.columns = ["state", "white", "error1", "black", "error2", "indian", "error3", "asian", "error4", "pacific", "error5", "other", "error6", "two_or_more_races", "error7"]
         data = cls.keep_numbers_only(data)
         data = cls.find_max_and_min_incomes(data)
         data = cls.add_state_location(data)
