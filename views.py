@@ -17,51 +17,9 @@ matplotlib.use('Agg')
 def index():
     """Display improved data as HTML table if data available
     If not, read base data, improve it and save it as final_income_data.csv"""
-    if path.exists("data/final_income_data.csv"):
-        data = pd.read_csv("data/final_income_data.csv", decimal=",")
-    else:
-        data = pd.read_csv("data/median_income_data.csv", decimal=",")
-        # Rename columns with shorter names
-        data.columns = ["state", "white", "error1", "black", "error2", "indian", "error3", "asian", "error4", "pacific", "error5", "other", "error6", "two_or_more_races", "error7" ]
-
-        # Clean strings and turn all data in pure integers
-        for column in data.columns[1:]:
-            column_values = list(data[column])
-            for index, value in enumerate(column_values):
-                # Keep only integer value from the string
-                try:
-                    value = int(re.sub('[^0-9]', "", value))
-                    column_values[index] = value
-                except ValueError:
-                    column_values[index] = None
-            data[column] = column_values
-
-        # Keep only data related to incomes by race
-        races_values = data[["white", "asian", "black", "indian", "pacific", "other", "two_or_more_races"]]
-        # Add column with richest race and highest income for each state
-        data["richest_race"] = races_values.idxmax(axis=1)
-        data["richest"] = races_values.max(axis=1)
-        # Add column with poorest race and lowest income for each state
-        data["poorest_race"] = races_values.idxmin(axis=1)
-        data["poorest"] = races_values.min(axis=1)
-        # Add column with diffeence beetwen highest and lowest income
-        data["difference"] = data["richest"] - data["poorest"]
-
-        # Add column with each state location in the US
-        # For location see geographical_information
-        location = []
-        for state in data["state"]:
-            if state in states_location["northern"]:
-                location.append("northern")
-            elif state in states_location["southern"]:
-                location.append("southern")
-            else:
-                location.append("western")
-        data["location"] = location
-
-        # Save the improved data as a csv file
-        data.to_csv(path_or_buf="data/final_income_data.csv", index=False)
-
+    if not path.exists("data/final_income_data.csv"):
+        dm.generate_improved_data()
+    data = pd.read_csv("data/final_income_data.csv", decimal=",")
     # Produce an html table to be displayed in the template
     data = data.to_html(classes=["table", "table-striped", "table-bordered", "table-responsive"])
     return render_template("index.html", data_table=data)
