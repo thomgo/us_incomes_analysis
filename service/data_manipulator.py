@@ -1,7 +1,5 @@
 import pandas as pd
 import re
-import matplotlib
-import matplotlib.pyplot as plt
 
 from data.geographical_information import states_location
 

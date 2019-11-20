@@ -2,6 +2,9 @@ import pandas as pd
 import matplotlib
 import matplotlib.pyplot as plt
 
+# Avoid runtime and threading errors because not displaying the charts
+matplotlib.use('Agg')
+
 
 class FigureGenerator():
     """Produce figures needed for analysis"""
@@ -13,6 +16,8 @@ class FigureGenerator():
 
     @classmethod
     def generate_richest_poorest_chart_by_race(cls):
+        """Generate pie chart to show frequency in percentage
+        of races beeing richest or poorest"""
         # Piechart with frequence of races in % in richest_race column
         cls.data["richest_race"].value_counts(normalize=True).plot(kind='pie', autopct='%1.1f%%', title="Races with highest income")
         plt.savefig(fname="static/images/distri_richest_race")
@@ -24,6 +29,8 @@ class FigureGenerator():
 
     @classmethod
     def generate_incomes_hist_by_race(cls):
+        """Generate histograms to show distribution of median incomes
+        for each race with global mean and median in description"""
         # Keep only the incomes by race
         subset = cls.data[["white", "asian", "black", "indian", "pacific", "other", "two_or_more_races"]]
         # Turn pacific column to float, if not mean and median does not work
