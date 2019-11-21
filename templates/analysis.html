@@ -39,27 +39,25 @@
 
   <section class="container">
     <h2>Distribution of incomes by race</h2>
-    <div class="row">
-      <div class="col-sm-4">
+    <div class="row mt-5">
+      <h3>Does whites and asians really have higher incomes ?</h3>
+      <div class="col-sm-6">
         <img class="img-fluid" src="{{ url_for('static', filename='images/hist_white.png')}}" alt="">
       </div>
-      <div class="col-sm-4">
-        <img class="img-fluid" src="{{ url_for('static', filename='images/hist_black.png')}}" alt="">
-      </div>
-      <div class="col-sm-4">
-        <img class="img-fluid" src="{{ url_for('static', filename='images/hist_indian.png')}}" alt="">
-      </div>
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         <img class="img-fluid" src="{{ url_for('static', filename='images/hist_asian.png')}}" alt="">
       </div>
-      <div class="col-sm-4">
-        <img class="img-fluid" src="{{ url_for('static', filename='images/hist_pacific.png')}}" alt="">
+    </div>
+    <div class="row mt-5">
+      <h3>Does blacks, indians and others really have lower incomes ?</h3>
+      <div class="col-sm-6">
+        <img class="img-fluid" src="{{ url_for('static', filename='images/hist_black.png')}}" alt="">
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-6">
+        <img class="img-fluid" src="{{ url_for('static', filename='images/hist_indian.png')}}" alt="">
+      </div>
+      <div class="col-sm-6">
         <img class="img-fluid" src="{{ url_for('static', filename='images/hist_other.png')}}" alt="">
-      </div>
-      <div class="col-sm-4">
-        <img class="img-fluid" src="{{ url_for('static', filename='images/hist_two_or_more_races.png')}}" alt="">
       </div>
     </div>
   </section>

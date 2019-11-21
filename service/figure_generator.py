@@ -39,8 +39,10 @@ class FigureGenerator():
         for label, column in subset.iteritems():
             mean = int(round(column.mean(skipna=True)))
             median = int(round(column.median(skipna=True)))
+            std = int(round(column.std()))
+            cv = round(std/mean, 2)
             title = "Histrogram of {} incomes".format(label)
-            text = "mean : {}  median : {}".format(mean, median)
+            text = "mean : {}  median : {} std : {} cv = {}".format(mean, median, std, cv)
             fname = "static/images/hist_{}".format(label)
             column.plot(kind='hist', title=title)
             plt.figtext(x=0.2, y=0.01, s=text)
