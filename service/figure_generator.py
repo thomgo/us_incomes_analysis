@@ -49,3 +49,18 @@ class FigureGenerator():
             plt.figtext(x=0.1, y=0.01, s=text)
             plt.savefig(fname=fname)
             plt.close()
+
+    @classmethod
+    def generate_contengency_tab(cls):
+        """Generate an html contengency table to check for correlation
+        between race median incomes and the state location in the US"""
+        tab = pd.DataFrame(columns=["southern", "northern", "western"], index=["white", "asian", "black", "indian", "other"])
+        for index, values in tab.iterrows():
+            subset = cls.data[[index, "location"]]
+            southern = subset[subset["location"] == "southern"]
+            northern = subset[subset["location"] == "northern"]
+            western = subset[subset["location"] == "western"]
+            tab["southern"][index] = round(southern[index].median())
+            tab["northern"][index] = round(northern[index].median())
+            tab["western"][index] = round(western[index].median())
+        return tab.to_html(classes=["table", "table-striped", "table-bordered", "text-center"])
