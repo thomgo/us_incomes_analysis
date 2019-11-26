@@ -32,9 +32,7 @@ class FigureGenerator():
         """Generate histograms to show distribution of median incomes
         for each race with global mean and median in description"""
         # Keep only the incomes by race
-        subset = cls.data[["white", "asian", "black", "indian", "pacific", "other", "two_or_more_races"]]
-        # Turn pacific column to float, if not mean and median does not work
-        subset["pacific"] = subset["pacific"].astype(float)
+        subset = cls.data[["white", "asian", "black", "indian", "other"]]
         # Create one histogram by race for incomes
         for label, column in subset.iteritems():
             mean = int(round(column.mean(skipna=True)))

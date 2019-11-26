@@ -38,7 +38,8 @@ states_location = {
         "Rhode Island",
         "South Dakota",
         "Vermont",
-        "Wisconsin"
+        "Wisconsin",
+        "District of Columbia"
     ],
     "western": [
         "Alaska",

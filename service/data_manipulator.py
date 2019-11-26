@@ -20,6 +20,7 @@ class DataManipulator():
         data = pd.read_csv(DataManipulator.data_file, decimal=",")
         # Rename columns with shorter names
         data.columns = ["state", "white", "error1", "black", "error2", "indian", "error3", "asian", "error4", "pacific", "error5", "other", "error6", "two_or_more_races", "error7"]
+        data = data.drop(["pacific", "error5", "two_or_more_races", "error7"], axis=1)
         data = cls.keep_numbers_only(data)
         data = cls.find_max_and_min_incomes(data)
         data = cls.add_state_location(data)
@@ -46,7 +47,7 @@ class DataManipulator():
     def find_max_and_min_incomes(data):
         """Add data about the richest and poorest race in eahc state"""
         # Keep only data related to incomes by race
-        races_values = data[["white", "asian", "black", "indian", "pacific", "other", "two_or_more_races"]]
+        races_values = data[["white", "asian", "black", "indian", "other"]]
         # Add column with richest race and highest income for each state
         data["richest_race"] = races_values.idxmax(axis=1)
         data["richest"] = races_values.max(axis=1)
