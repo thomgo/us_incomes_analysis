@@ -21,6 +21,7 @@ class DataManipulator():
         # Rename columns with shorter names
         data.columns = ["state", "white", "error1", "black", "error2", "indian", "error3", "asian", "error4", "pacific", "error5", "other", "error6", "two_or_more_races", "error7"]
         data = data.drop(["pacific", "error5", "two_or_more_races", "error7"], axis=1)
+        data = data.drop([11, 39])
         data = cls.keep_numbers_only(data)
         data = cls.find_max_and_min_incomes(data)
         data = cls.add_state_location(data)
