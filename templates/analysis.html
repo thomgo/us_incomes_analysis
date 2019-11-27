@@ -66,7 +66,7 @@
         <img class="img-fluid" src="{{ url_for('static', filename='images/hist_asian.png')}}" alt="">
       </div>
       <p class="mt-3">The chart above clearly shows that yes, white and asian houselods are globally richer than
-      other houseolds with a mean of median incomes accross the US around 62 000$ for the whites and 70 000$ for the asians.
+      other houseolds with a mean of median incomes accross the US around 62 500$ for the whites and 70 000$ for the asians.
       The main difference is in the repartition of the incomes. On the one hand, the asian repartition of incomes is very
       consistent. The data is equally reparted on the histogram and the very low skewness of -0.06 confirms it. However those
       statistics do not mean that asian houseolds are riche in every states, we can notice a standard deviation of 16 262$
@@ -123,7 +123,18 @@
 
   <section class="container mt-5">
     <h2>Is there a correlation between state location and poorest race ?</h2>
-    <div class="row mt-5">
+    <p>Concerning the black community, there is no correlation. This community suffers the highest level of poverty
+    most of the time and the frequency does not change much no matter where you are in the USA. It means that the
+    black community tends to be the poorest community everywhere.</p>
+
+    <p>Things are a little bit more surprising when it comes to the indian and other community. Indeed we see
+    a significant difference bewteen the contengency and the Khi2 table in the western states for the indians. They shoudl represent
+    25% of the poorest races but in fact they represent 50%. There is a correlation, indians tend to be the poorest more
+    often when you go in the western states. Regarding the other community the repartition is unequal, in northern and
+    western states they are the poorest community quite often but never in the western states. The other community
+    tends to be poorest in north and south but not in west. This might be explianed by the fact that it could include
+    hispanic people whose biggest communities are in the western states.</p>
+    <div class="row mt-4">
       <div class="col-sm-6">
         <h5 class="mb-4">Contengency tab of poorest race by state location</h5>
         {{poorest_tab|safe}}
@@ -133,7 +144,6 @@
         {{khi2_poorest|safe}}
       </div>
     </div>
-    <p></p>
   </section>
 
 {% endblock %}
