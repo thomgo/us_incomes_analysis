@@ -132,7 +132,7 @@
     25% of the poorest races but in fact they represent 50%. There is a correlation, indians tend to be the poorest more
     often when you go in the western states. Regarding the other community the repartition is unequal, in northern and
     western states they are the poorest community quite often but never in the western states. The other community
-    tends to be poorest in north and south but not in west. This might be explianed by the fact that it could include
+    tends to be poorest in north and south but not in west. This might be explained by the fact that it could include
     hispanic people whose biggest communities are in the western states.</p>
     <div class="row mt-4">
       <div class="col-sm-6">
@@ -142,6 +142,42 @@
       <div class="col-sm-6">
         <h5 class="mb-4">Khi2 contengency tab</h5>
         {{khi2_poorest|safe}}
+      </div>
+    </div>
+  </section>
+
+  <section class="container mt-5">
+    <h2>Is there a correlation between state location and richest race ?</h2>
+    <p>It depends. Regarding the Asian, no, it is the richest community no matter the state's location.
+    It confirms what has been shown by the analysis so far. However we can notice one interesting correlation
+    about the white community. Beeing located in the southern state tends to indicate lower incomes. So the white
+    community is much poorer in those states but whithout being the poorest. Indeed it should represent 18% of the
+    richest communities but represents none.</p>
+    <div class="row mt-4">
+      <div class="col-sm-6">
+        <h5 class="mb-4">Contengency tab of richest race by state location</h5>
+        {{richest_tab|safe}}
+      </div>
+      <div class="col-sm-6">
+        <h5 class="mb-4">Khi2 contengency tab</h5>
+        {{khi2_richest|safe}}
+      </div>
+    </div>
+  </section>
+
+  <section class="container mt-5">
+    <h2>Is there a correlation between inequality of incomes and location ?</h2>
+    <div class="row">
+      <div class="col-sm-6">
+        <img class="img-fluid" src="{{ url_for('static', filename='images/boxplot_diff.png')}}" alt="">
+      </div>
+      <div class="col-sm-6">
+        <p class="mt-5">On the left you can see box plots representing the differences between the richest and poorest community
+        grouped by state's location. The southern states have the shortest box showing that even if people are globally
+        poorer in those states, the differences between poorest and richest are similar in most states. Nothern states
+        are interesting as well. There inequalities at a state level are the widest and the highest. This is probably
+        because those states concentrate powers, industries and big compagnies that generate money and increase some
+        houseolds incomes. However this does not seem to benefit to everyone</p>
       </div>
     </div>
   </section>

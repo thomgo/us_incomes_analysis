@@ -83,3 +83,35 @@ class FigureGenerator():
         poorest_tab = poorest_tab.to_html(classes=["table", "table-striped", "table-bordered", "text-center"])
         khi2_poorest = khi2_poorest.to_html(classes=["table", "table-striped", "table-bordered", "text-center"])
         return poorest_tab, khi2_poorest
+
+    @classmethod
+    def generate_richest_race_by_location_tabs(cls):
+        """Analysis of the correlation bewteen richest race and state location
+        with the Khi2 method. Returns two html tables"""
+        richest_tab = pd.DataFrame(columns=["white", "asian", "black", "indian", "other", "total"], index=["southern", "northern", "western", "total"])
+        subset = cls.data[["richest_race", "location"]]
+        for index, values in richest_tab.iterrows():
+            location_data = subset[subset["location"] == index]
+            data = location_data["richest_race"].value_counts()
+            richest_tab.loc[index] = data
+        richest_tab.loc["total"] = richest_tab.sum(axis=0)
+        richest_tab["total"] = richest_tab.sum(axis=1)
+        richest_tab = richest_tab.fillna(0)
+        khi2_richest = richest_tab.copy()
+        for label, values in khi2_richest.iteritems():
+            rate = khi2_richest[label]["total"]/khi2_richest["total"]["total"]
+            khi2_richest[label] = [round(x*rate) for x in khi2_richest["total"]]
+        richest_tab = richest_tab.to_html(classes=["table", "table-striped", "table-bordered", "text-center"])
+        khi2_richest = khi2_richest.to_html(classes=["table", "table-striped", "table-bordered", "text-center"])
+        return richest_tab, khi2_richest
+
+    @classmethod
+    def generate_difference_boxplot(cls):
+        result = []
+        subset = cls.data[["difference", "location"]]
+        for location in subset["location"].unique():
+            data = subset[subset["location"]==location]
+            result.append(data["difference"])
+        plt.boxplot(result, labels=subset["location"].unique(), showfliers=False, vert=False, patch_artist=True, showmeans=True )
+        plt.savefig(fname="static/images/boxplot_diff")
+        plt.close()

@@ -30,4 +30,13 @@ def analysis():
     fg.generate_incomes_hist_by_race()
     contengency_tab = fg.generate_incomes_by_race_state_tab()
     poorest_tab, khi2_poorest = fg.generate_poorest_race_by_location_tabs()
-    return render_template("analysis.html", contengency_tab=contengency_tab, poorest_tab=poorest_tab, khi2_poorest=khi2_poorest)
+    richest_tab, khi2_richest = fg.generate_richest_race_by_location_tabs()
+    fg.generate_difference_boxplot()
+    return render_template(
+        "analysis.html",
+        contengency_tab=contengency_tab,
+        poorest_tab=poorest_tab,
+        khi2_poorest=khi2_poorest,
+        richest_tab=richest_tab,
+        khi2_richest=khi2_richest
+    )
