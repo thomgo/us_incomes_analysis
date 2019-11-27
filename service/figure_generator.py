@@ -49,7 +49,7 @@ class FigureGenerator():
             plt.close()
 
     @classmethod
-    def generate_contengency_tab(cls):
+    def generate_incomes_by_race_state_tab(cls):
         """Generate an html contengency table to check for correlation
         between race median incomes and the state location in the US"""
         tab = pd.DataFrame(columns=["southern", "northern", "western"], index=["white", "asian", "black", "indian", "other"])
@@ -64,21 +64,22 @@ class FigureGenerator():
         return tab.to_html(classes=["table", "table-striped", "table-bordered", "text-center"])
 
     @classmethod
-    def generate_poorest_tab(cls):
-        """"""
-        tab = pd.DataFrame(columns=["white", "asian", "black", "indian", "other", "total"], index=["southern", "northern", "western", "total"])
+    def generate_poorest_race_by_location_tabs(cls):
+        """Analysis of the correlation bewteen poorest race and state location
+        with the Khi2 method. Returns two html tables"""
+        poorest_tab = pd.DataFrame(columns=["white", "asian", "black", "indian", "other", "total"], index=["southern", "northern", "western", "total"])
         subset = cls.data[["poorest_race", "location"]]
-        for index, values in tab.iterrows():
+        for index, values in poorest_tab.iterrows():
             location_data = subset[subset["location"] == index]
             data = location_data["poorest_race"].value_counts()
-            tab.loc[index] = data
-        tab.loc["total"] = tab.sum(axis=0)
-        tab["total"] = tab.sum(axis=1)
-        tab = tab.fillna(0)
-        khi2 = tab.copy()
-        for label, values in khi2.iteritems():
-            rate = khi2[label]["total"]/khi2["total"]["total"]
-            khi2[label] = [round(x*rate) for x in khi2["total"]]
-        tab = tab.to_html(classes=["table", "table-striped", "table-bordered", "text-center"])
-        khi2 = khi2.to_html(classes=["table", "table-striped", "table-bordered", "text-center"])
-        return tab, khi2
+            poorest_tab.loc[index] = data
+        poorest_tab.loc["total"] = poorest_tab.sum(axis=0)
+        poorest_tab["total"] = poorest_tab.sum(axis=1)
+        poorest_tab = poorest_tab.fillna(0)
+        khi2_poorest = poorest_tab.copy()
+        for label, values in khi2_poorest.iteritems():
+            rate = khi2_poorest[label]["total"]/khi2_poorest["total"]["total"]
+            khi2_poorest[label] = [round(x*rate) for x in khi2_poorest["total"]]
+        poorest_tab = poorest_tab.to_html(classes=["table", "table-striped", "table-bordered", "text-center"])
+        khi2_poorest = khi2_poorest.to_html(classes=["table", "table-striped", "table-bordered", "text-center"])
+        return poorest_tab, khi2_poorest
