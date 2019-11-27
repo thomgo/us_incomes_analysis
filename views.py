@@ -29,4 +29,5 @@ def analysis():
     fg.generate_richest_poorest_chart_by_race()
     fg.generate_incomes_hist_by_race()
     contengency_tab = fg.generate_contengency_tab()
-    return render_template("analysis.html", contengency_tab=contengency_tab)
+    tab, khi2 = fg.generate_poorest_tab()
+    return render_template("analysis.html", contengency_tab=contengency_tab, tab=tab, khi2=khi2)

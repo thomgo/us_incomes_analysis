@@ -62,3 +62,23 @@ class FigureGenerator():
             tab["northern"][index] = round(northern[index].median())
             tab["western"][index] = round(western[index].median())
         return tab.to_html(classes=["table", "table-striped", "table-bordered", "text-center"])
+
+    @classmethod
+    def generate_poorest_tab(cls):
+        """"""
+        tab = pd.DataFrame(columns=["white", "asian", "black", "indian", "other", "total"], index=["southern", "northern", "western", "total"])
+        subset = cls.data[["poorest_race", "location"]]
+        for index, values in tab.iterrows():
+            location_data = subset[subset["location"] == index]
+            data = location_data["poorest_race"].value_counts()
+            tab.loc[index] = data
+        tab.loc["total"] = tab.sum(axis=0)
+        tab["total"] = tab.sum(axis=1)
+        tab = tab.fillna(0)
+        khi2 = tab.copy()
+        for label, values in khi2.iteritems():
+            rate = khi2[label]["total"]/khi2["total"]["total"]
+            khi2[label] = [round(x*rate) for x in khi2["total"]]
+        tab = tab.to_html(classes=["table", "table-striped", "table-bordered", "text-center"])
+        khi2 = khi2.to_html(classes=["table", "table-striped", "table-bordered", "text-center"])
+        return tab, khi2

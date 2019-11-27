@@ -14,7 +14,7 @@
 
     <p class="mt-3">Please take notice that some minor changes have been made to the original data. Primarily we deleted some data
     that did not seem reliable or relevant. The data about the pacific community has been deleted because of a too much
-    high margin of error risquing to generate outliers. The data concerning "two or more races" has also been deleted
+    high margin of error risking to generate outliers. The data concerning "two or more races" has also been deleted
     beacause this notion seemed pretty unclear and could lead to misunderstandings. The consequence of these choices is
     that the row concerning Hawaii has been deleted because it no longer seemed relevant without the data about the pacific
     community. Concerning Puerto Rico, the row has been deleted because it was an outlier with very low median incomes that do
@@ -103,7 +103,7 @@
   </section>
 
   <section class="container mt-5">
-    <h2>Is there a link between race incomes and state location ?</h2>
+    <h2>Is there a correlation between race incomes and state location ?</h2>
     <div class="row mt-5">
       <div class="col-sm-6">
         {{contengency_tab|safe}}
@@ -119,6 +119,21 @@
         Considering the historical situation of black people in the southern states, we could have expect other results.</p>
       </div>
     </div>
+  </section>
+
+  <section class="container mt-5">
+    <h2>Is there a correlation between state location on poorest race ?</h2>
+    <div class="row mt-5">
+      <div class="col-sm-6">
+        <h5 class="mb-4">Contengency tab of poorest race by state location</h5>
+        {{tab|safe}}
+      </div>
+      <div class="col-sm-6">
+        <h5 class="mb-4">Khi2 contengency tab</h5>
+        {{khi2|safe}}
+      </div>
+    </div>
+    <p></p>
   </section>
 
 {% endblock %}
