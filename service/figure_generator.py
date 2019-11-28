@@ -115,3 +115,11 @@ class FigureGenerator():
         plt.boxplot(result, labels=subset["location"].unique(), showfliers=False, vert=False, patch_artist=True, showmeans=True )
         plt.savefig(fname="static/images/boxplot_diff")
         plt.close()
+
+    @classmethod
+    def generate_error_scatterplot(cls):
+        plt.plot(cls.data[["white", "asian", "black", "indian", "other"]],cls.data[["error1", "error2", "error3", "error4", "error6"]],"o",alpha=0.5)
+        plt.xlabel("income")
+        plt.ylabel("margin of error")
+        plt.savefig(fname="static/images/scatterplot_error")
+        plt.close()

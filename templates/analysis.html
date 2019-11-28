@@ -176,8 +176,26 @@
         grouped by state's location. The southern states have the shortest box showing that even if people are globally
         poorer in those states, the differences between poorest and richest are similar in most states. Nothern states
         are interesting as well. There inequalities at a state level are the widest and the highest. This is probably
-        because those states concentrate powers, industries and big compagnies that generate money and increase some
+        because those states concentrate powers, industries and big compagnies that generates money and increase some
         houseolds incomes. However this does not seem to benefit to everyone</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container mt-5">
+    <h2>Is the data reliable ?</h2>
+    <div class="row">
+      <div class="col-sm-6">
+        <p class="mt-5">The scatter plot displayed on the rights shows all the recorded incomes for all communities
+        in every states compared to the recorded margins of error.</p>
+        <p>It is clear that most of the recorded errors are under 5000$ and there does not seem to be any correlation
+        between the amount of income and the margin of error. On the contrary, the more the income is low, the more
+        the margin of error seems to be high. However the margin of error stays glabally low and besides some outliers
+        that can correspond to isolated states or communities where it can be hard to find data
+        we can consider that the data is globally reliable if it has been collected correctly.</p>
+      </div>
+      <div class="col-sm-6">
+        <img class="img-fluid" src="{{ url_for('static', filename='images/scatterplot_error.png')}}">
       </div>
     </div>
   </section>

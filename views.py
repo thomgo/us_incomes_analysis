@@ -32,6 +32,7 @@ def analysis():
     poorest_tab, khi2_poorest = fg.generate_poorest_race_by_location_tabs()
     richest_tab, khi2_richest = fg.generate_richest_race_by_location_tabs()
     fg.generate_difference_boxplot()
+    fg.generate_error_scatterplot()
     return render_template(
         "analysis.html",
         contengency_tab=contengency_tab,
